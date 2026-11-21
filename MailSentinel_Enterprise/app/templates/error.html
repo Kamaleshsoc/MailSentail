@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Error {{ code }} - MailSentinel{% endblock %}
+{% block content %}
+<div class="max-w-xl mx-auto text-center py-20 space-y-4">
+    <h1 class="text-6xl font-extrabold text-cyan-400">{{ code }}</h1>
+    <p class="text-slate-400 text-lg">{{ message }}</p>
+    <div class="pt-4">
+        <a href="{{ url_for('main.index') }}" class="bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold px-6 py-3 rounded-lg transition">Return Home</a>
+    </div>
+</div>
+{% endblock %}

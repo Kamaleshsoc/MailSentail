@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#11151f">
+<title>{% block title %}MailSentinel{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head><body>
+<div class="app-shell">
+<aside class="sidebar">
+<a class="brand" href="{{ url_for('main.index') }}"><span class="brand-icon">✳</span><span>mail<span class="brand-accent">sentinel</span><small>EMAIL THREAT OPERATIONS</small></span></a>
+<div class="searchbox">⌕ <span>Search features...</span><kbd>CTRL K</kbd></div>
+<div class="nav-caption">WORKSPACE</div>
+<nav class="nav">
+<a class="{{ 'active' if request.endpoint == 'main.index' else '' }}" href="{{ url_for('main.index') }}"><i>▦</i> Overview</a>
+<div class="nav-group-title"><span>✉</span> Core Email Protection <b>⌃</b></div>
+<a class="{{ 'active' if request.endpoint == 'analyzer.analyze' else '' }}" href="{{ url_for('analyzer.analyze') }}"><i>⌕</i> Email Analysis</a>
+<a class="{{ 'active' if request.endpoint == 'history.index' else '' }}" href="{{ url_for('history.index') }}"><i>◷</i> Security Events</a>
+<a href="{{ url_for('history.index', risk='High') }}"><i>◈</i> High Risk Emails</a>
+<a href="{{ url_for('main.about') }}"><i>ⓘ</i> Detection Method</a>
+<div class="nav-group-title muted-nav"><span>▣</span> Threat Operations <b>⌄</b></div>
+<a href="{{ url_for('history.index') }}"><i>⌁</i> Investigation History</a>
+<a href="{{ url_for('main.about') }}"><i>⚙</i> Platform & Limitations</a>
+</nav>
+<div class="sidebar-foot"><span class="pulse"></span> LOCAL ANALYSIS ENGINE<small>Private workspace · localhost</small></div>
+</aside>
+<main class="main-area">
+<header class="topbar"><div><div class="crumb">CORE EMAIL PROTECTION <span>/</span> {% block breadcrumb %}OVERVIEW{% endblock %}</div><div class="updated">Local workspace · Analysis data stored on this device</div></div><div class="top-actions"><span class="engine-status"><b></b> ENGINE READY</span><a class="btn btn-blue btn-sm" href="{{ url_for('analyzer.analyze') }}">＋ New Analysis</a></div></header>
+<section class="page-content">
+{% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}{% for category,message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}{% endif %}{% endwith %}
+{% block content %}{% endblock %}
+</section>
+<footer><span>MAILSENTINEL</span> · EMAIL THREAT OPERATIONS <small>Rule-based static analysis · Not a live enterprise mail gateway</small></footer>
+</main></div>
+{% block scripts %}{% endblock %}
+</body></html>

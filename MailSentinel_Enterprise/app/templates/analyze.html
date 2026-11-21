@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Analyze Email · MailSentinel{% endblock %}
+{% block breadcrumb %}EMAIL ANALYSIS{% endblock %}
+{% block content %}
+<div class="page-title-row"><div><div class="eyebrow">CORE EMAIL PROTECTION / NEW INVESTIGATION</div><h1>Email Threat Analyzer</h1><p class="subtle">Submit the original email source to inspect sender identity, headers, URLs, authentication signals and attachments.</p></div><span class="status-pill"><i></i> LOCAL ENGINE READY</span></div>
+<form method="POST" enctype="multipart/form-data" class="analysis-layout">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<div class="panel input-panel"><div class="panel-head"><div><h2>Submit Email for Analysis</h2><p>Choose an email file or paste the complete raw source.</p></div><span class="step-label">STEP 01</span></div>
+<label class="upload-drop" for="email_file"><span class="upload-symbol">⇧</span><strong>Upload email source</strong><span>Drag a file here or browse your computer</span><small>Supported: .EML, .TXT · Maximum 10 MB</small><input id="email_file" type="file" name="email_file" accept=".eml,.txt"><b id="file-name">No file selected</b></label>
+<div class="divider-label"><span>OR PASTE RAW EMAIL SOURCE</span></div>
+<label class="form-label" for="raw_content">Email headers and message body</label><textarea id="raw_content" name="raw_content" rows="13" placeholder="From: sender@example.com&#10;To: analyst@company.com&#10;Reply-To: reply@example.net&#10;Subject: Urgent account verification&#10;Authentication-Results: mx.example; spf=fail; dkim=fail; dmarc=fail&#10;&#10;Paste the complete original email source here..."></textarea>
+<div class="form-bottom"><span>🔒 Source is processed locally and not sent to an external analysis service.</span><button class="btn btn-blue" type="submit">Run Security Analysis <b>→</b></button></div>
+</div>
+<aside class="panel checklist-panel"><div class="panel-head"><div><h2>Inspection Coverage</h2><p>Signals evaluated by the current rules engine</p></div></div>
+<div class="inspection-list">
+<div><i>01</i><span><b>Sender identity</b><small>From, Reply-To and Return-Path comparison</small></span><em>●</em></div>
+<div><i>02</i><span><b>Email authentication</b><small>SPF, DKIM and DMARC header results</small></span><em>●</em></div>
+<div><i>03</i><span><b>URL inspection</b><small>IP URLs, shorteners and punycode labels</small></span><em>●</em></div>
+<div><i>04</i><span><b>Social engineering</b><small>Urgency and credential-harvesting phrases</small></span><em>●</em></div>
+<div><i>05</i><span><b>Attachment review</b><small>Filename and risky extension checks</small></span><em>●</em></div>
+</div>
+<div class="warning-box"><b>⚠ Safe handling reminder</b><p>Do not open suspicious attachments or click links. This analyzer extracts indicators but does not sandbox files or browse URLs.</p></div>
+</aside></form>
+{% endblock %}
+{% block scripts %}<script>const fileInput=document.getElementById('email_file');fileInput.addEventListener('change',()=>{document.getElementById('file-name').textContent=fileInput.files.length?fileInput.files[0].name:'No file selected';});</script>{% endblock %}

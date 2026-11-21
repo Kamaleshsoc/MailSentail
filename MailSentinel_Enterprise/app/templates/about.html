@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Platform · MailSentinel{% endblock %}
+{% block breadcrumb %}PLATFORM{% endblock %}
+{% block content %}
+<div class="page-title-row"><div><div class="eyebrow">MAILSENTINEL / PLATFORM</div><h1>Detection Method & Platform Scope</h1><p class="subtle">Understand what the current MailSentinel engine does and does not verify.</p></div></div>
+<div class="panel"><h2>Current inspection capabilities</h2><ul class="about-list"><li>Parse raw .eml and .txt email source, including common headers and MIME message bodies.</li><li>Compare From, Reply-To and Return-Path domains.</li><li>Read SPF, DKIM and DMARC statuses reported in the supplied Authentication-Results header.</li><li>Extract URLs and flag selected patterns such as raw IP addresses, known shorteners and punycode host labels.</li><li>Identify selected urgency, credential and payment manipulation phrases.</li><li>Review attachment filenames and flag selected risky file extensions.</li><li>Store scan evidence and provide investigation history and response recommendations.</li></ul></div>
+<div class="notice-panel"><b>Important: not a live enterprise mail security gateway</b><p>MailSentinel currently performs local, rule-based static analysis. It does not connect to Microsoft 365, Google Workspace, Proofpoint, mail gateways, EDR, SIEM, threat intelligence feeds or sandbox infrastructure. It does not independently validate DNS authentication, open URLs, detonate attachments or run a trained machine-learning model. Dashboard totals represent only local scans saved in this database.</p></div>
+{% endblock %}
